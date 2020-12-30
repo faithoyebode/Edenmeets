@@ -1,7 +1,8 @@
 import {
   HOMEPAGE,
   SIGNUP,
-  SIGNIN 
+  SIGNIN,
+  FORGOT_PASSWORD
   } from './pagesPath';
 import withSuspense from 'components/HOC/withSuspense';
 
@@ -20,6 +21,11 @@ import withSuspense from 'components/HOC/withSuspense';
   {
     path: SIGNIN,
     component: withSuspense({ page: "unAuthPages/SignIn" }),
+    exact: true,
+  },
+  {
+    path:   FORGOT_PASSWORD,
+    component: withSuspense({ page: "unAuthPages/ForgotPassword" }),
     exact: true,
   }
 ];
