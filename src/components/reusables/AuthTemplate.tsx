@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import HeroImg from 'assets/images/auth-hero.jpg';
 import NavBar from "components/reusables/NavBar";
 import Footer from "components/reusables/Footer";
-
+import {ReactComponent as WhiteStrokes} from 'assets/images/white-strokes.svg';
+import {ReactComponent as YellowStrokes} from 'assets/images/yellow-strokes.svg';
 
 
 
@@ -34,6 +35,16 @@ const AuthTemplateWrapper = styled.div`
             font-family: "Montserrat-Bold";
             font-size: 64px;
         }
+        .yellow-stroke{
+            position: absolute;
+            left: 17%;
+            bottom: 103px;
+        }
+        .white-stroke{
+            position: absolute;
+            left: 47%;
+            bottom: 95px;
+        }
     }
     
     @media all and (max-width: 768px){
@@ -42,6 +53,12 @@ const AuthTemplateWrapper = styled.div`
         }
         .hero__theme{
             font-size: 40px !important;
+        }
+        .yellow-stroke{
+            display: none;
+        }
+        .white-stroke{
+            display: none;
         }
     }
     @media all and (max-width: 425px){
@@ -71,6 +88,9 @@ const AuthTemplate: FC<any> = ({ children }: AuthChildProps ): ReactElement => {
                            { children }
                         </div>
                     </div>
+                    
+                    <YellowStrokes className="yellow-stroke"/>
+                    <WhiteStrokes className="white-stroke" />
                 </div>
             </section>
             <Footer />

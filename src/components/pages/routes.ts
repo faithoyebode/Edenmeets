@@ -1,5 +1,6 @@
 import {
   HOMEPAGE,
+  ABOUT_US,
   SIGNUP,
   SIGNIN,
   FORGOT_PASSWORD
@@ -14,6 +15,11 @@ import withSuspense from 'components/HOC/withSuspense';
     exact: true,
   },
   {
+    path: ABOUT_US,
+    component: withSuspense({ page: "unAuthPages/AboutUs" }),
+    exact: true,
+  },
+  {
     path: SIGNUP,
     component: withSuspense({ page: "unAuthPages/SignUp" }),
     exact: true,
@@ -24,7 +30,7 @@ import withSuspense from 'components/HOC/withSuspense';
     exact: true,
   },
   {
-    path:   FORGOT_PASSWORD,
+    path:  FORGOT_PASSWORD,
     component: withSuspense({ page: "unAuthPages/ForgotPassword" }),
     exact: true,
   }

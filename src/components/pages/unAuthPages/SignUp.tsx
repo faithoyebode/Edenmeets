@@ -1,10 +1,19 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import styled from '@emotion/styled';
 import HeroImg from 'assets/images/auth-hero.jpg';
 import NavBar from "components/reusables/NavBar";
 import Footer from "components/reusables/Footer";
+import SelectInput from "components/reusables/SelectInput";
+
+
 
 const SignUpWrapper = styled.div`
+    .mt-23{ 
+        margin-top: 23px;
+    }
+
+    .w-32{width: 32%;}
+
     .hero{
         min-height: 1049px;
         background: linear-gradient(104.88deg, rgba(0, 0, 0, 0.9) -5.41%, rgba(0, 0, 0, 0) 102.1%), url(${HeroImg});
@@ -39,9 +48,15 @@ const SignUpWrapper = styled.div`
                             position: relative;
                             width: 100%;
                         }
+
+                        .group.last-child{
+                            margin-bottom: 42px;
+                        }
+
                         .group{
                             margin-bottom: 23px;
-                            
+
+
                             input{
                                 width: 100%;
                                 border: none;
@@ -91,116 +106,60 @@ const SignUpWrapper = styled.div`
                         .disclaimer{
                             font-size: 12px;
                         }
-
-
-                        .select-box {
-                            position: relative;
-                            display: block;
-                            width: 100%;
-                            margin: 0 auto;
-                            font-size: 18px;
-                            color: #60666d;
-
-                            &__current:focus .select-box__icon {
-                                transform: translateY(-50%) rotate(180deg);
+                        .gender-wrapper{
+                            .gender-select:focus{
+                                border: 1px solid red;
+                                outline: none;
                             }
+                            .gender-select.has-focus{
+                                .gender-select__select{
+                                    border-radius: 8px;
+                                    background: #ffff !important;
+    
+                                    div.gender-select__options{
+                                        list-style-type: none !important;
+    
+                                        .gender-select__row .gender-select__option{
+                                            margin-bottom: 0 !important;
+                                            border-radius: 8px !important;
+                                            width: 100% !important;
+                                            color: #00000 !important;
+                                        }
+                                    }
+                                }
+
+                            }
+                            .gender-select__input{
+                                width: 100%;
+                                height: 40px;
+                                border-radius: 8px;
+                                padding: 12px 20px;
+                                border: none;
+                                outline: none;
+
+                                &:focus{
+                                    border: 1px solid red;
+                                }
+                            }
+
+                            
+
+                            img{
+                                top: 0;
+                                right: 20px;
+                                height: 40px;
+                                cursor: pointer;
+                                opacity: 0.5;
+                            }
+                            img:click{
+                                transform: scale(2);
+                            }
+                            
                         }
-                          
-                          .select-box__current {
-                            position: relative;
-                            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
-                            cursor: pointer;
-                            outline: none;
-                          }
-                          .select-box__current:focus + .select-box__list {
-                            opacity: 1;
-                            -webkit-animation-name: none;
-                            animation-name: none;
-                          }
-                          .select-box__current:focus + .select-box__list .select-box__option {
-                            cursor: pointer;
-                          }
-                          .select-box__current:focus .select-box__icon {
-                            transform: translateY(-50%) rotate(180deg);
-                          }
-                          .select-box__icon {
-                            position: absolute;
-                            top: 50%;
-                            right: 15px;
-                            transform: translateY(-50%);
-                            width: 20px;
-                            opacity: 0.3;
-                            transition: 0.2s ease;
-                          }
-                          .select-box__value {
-                            display: flex;
-                          }
-                          .select-box__input {
-                            display: none;
-                          }
-                          .select-box__input:checked + .select-box__input-text {
-                            display: block;
-                          }
-                          .select-box__input-text {
-                            display: none;
-                            width: 100%;
-                            margin: 0;
-                            padding: 15px;
-                            background-color: #fff;
-                          }
-                          .select-box__list {
-                            position: absolute;
-                            z-index: 25;
-                            width: 100%;
-                            padding: 15px 0;
-                            background: red;
-                            list-style: none;
-                            opacity: 1;
-                            border-radius: 10px;
-                            margin-top: 6px;
-                            -webkit-animation-name: HideList;
-                                    animation-name: HideList;
-                            -webkit-animation-duration: 0.5s;
-                                    animation-duration: 0.5s;
-                            -webkit-animation-delay: 0.5s;
-                                    animation-delay: 0.5s;
-                            -webkit-animation-fill-mode: forwards;
-                                    animation-fill-mode: forwards;
-                            -webkit-animation-timing-function: step-start;
-                                    animation-timing-function: step-start;
-                            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
-                          }
-                          .select-box__option {
-                            display: block;
-                            padding: 15px;
-                            background-color: #fff;
-                          }
-                          .select-box__option:hover, .select-box__option:focus {
-                            color: #546c84;
-                            background-color: #fbfbfb;
-                          }
-                          
-                          @-webkit-keyframes HideList {
-                            from {
-                              transform: scaleY(1);
-                            }
-                            to {
-                              transform: scaleY(0);
-                            }
-                          }
-                          
-                          @keyframes HideList {
-                            from {
-                              transform: scaleY(0);
-                            }
-                            to {
-                              transform: scaleY(1);
-                            }
-                        }
-
-
+                        
 
                     }
+                    
                 }
             }
         }
@@ -221,7 +180,49 @@ const SignUpWrapper = styled.div`
     
 `;
 
-const SignUp: FC<any> = (): ReactElement => {
+const SignUp: FC<any> = (): ReactElement => { 
+    const genderData = [
+        {
+            radiosName: "gender",
+            itemName: "I am a man 👨🏽",
+            identity: "man"
+        },
+        {
+            radiosName: "gender",
+            itemName: "I am a woman 👩🏻",
+            identity: "woman"
+        }
+    ];
+    const [ genderState, setGenderState ] = useState(genderData[0].itemName);
+
+    const dayData = [...Array(31)].map(
+    (e, index) => ({
+        radiosName: "day",
+        itemName: index+1,
+        identity: index+1
+    }));
+    
+    const [ dayState, setDayState ] = useState(dayData[0].itemName);
+
+    const monthData = [...Array(12)].map(
+        (e, index) => ({
+            radiosName: "day",
+            itemName: index+1,
+            identity: index+1
+        }));
+
+    const [ monthState, setMonthState ] = useState(monthData[0].itemName);
+
+    const yearData = [...Array(50)].map(
+        (e, index) => ({
+            radiosName: "day",
+            itemName: index+1980,
+            identity: index+1980
+        }));
+
+    const [ yearState, setYearState ] = useState(yearData[0].itemName);
+
+
     return (
         <SignUpWrapper>
             <section className="hero position-relative">
@@ -238,57 +239,33 @@ const SignUp: FC<any> = (): ReactElement => {
                                         <p>Almost done...</p>
                                         <p>&#10005;</p>
                                     </div>
-                                    <div className="">
-                                        
-                                        
-                                    <div className="select-box">
-                                        <div className="select-box__current">
-                                            <div className="select-box__value">
-                                                <input className="select-box__input" type="radio" id="0" value="1" name="Ben" defaultChecked />
-                                                <p className="select-box__input-text">Cream</p>
-                                            </div>
-                                            <div className="select-box__value">
-                                                <input className="select-box__input" type="radio" id="1" value="2" name="Ben"/>
-                                                <p className="select-box__input-text">Cheese</p>
-                                            </div>
-                                            <div className="select-box__value">
-                                                <input className="select-box__input" type="radio" id="2" value="3" name="Ben"/>
-                                                <p className="select-box__input-text">Milk</p>
-                                            </div>
-                                            <div className="select-box__value">
-                                                <input className="select-box__input" type="radio" id="3" value="4" name="Ben"/>
-                                                <p className="select-box__input-text">Honey</p>
-                                            </div>
-                                            
-                                            <img className="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
-                                        </div>
-                                        <ul className="select-box__list">
-                                            <li>
-                                                <label className="select-box__option" htmlFor="0">Cream</label>
-                                            </li>
-                                            <li>
-                                                <label className="select-box__option" htmlFor="1">Cheese</label>
-                                            </li>
-                                            <li>
-                                                <label className="select-box__option" htmlFor="2">Milk</label>
-                                            </li>
-                                            <li>
-                                                <label className="select-box__option" htmlFor="3">Honey</label>
-                                            </li>
-                                            
-                                        </ul>
-                                        </div>
 
+                                    <div className="position-relative gender-wrapper">
 
 
                                     </div>
-                                    <div className="group">
+                                    
+                                    <div className="w-100">
+                                        <SelectInput data={genderData} dataState={genderState} setDataState={setGenderState}/>
+                                    </div>
+                                    
+                                    <div className="group mt-23">
                                         <label className="d-block">Tell us your name</label>
                                         <input type="text" placeholder="Name" name="" id="" />
                                     </div>
                                     <div className="group">
                                         <label className="d-block">Date of birth</label>
-                                        <input type="text" placeholder="Name" name="" id="" />
+                                        <div className="d-flex justify-content-between">
+                                            <div className="w-32">
+                                                <SelectInput data={dayData} dataState={"Day"} setDataState={setDayState} dayState={dayState} />
+                                            </div>
+                                            <div className="w-32">
+                                                <SelectInput data={monthData} dataState={"Month"} setDataState={setMonthState} dayState={monthState} />
+                                            </div>
+                                            <div className="w-32">
+                                                <SelectInput data={yearData} dataState={"Year"} setDataState={setYearState} dayState={yearState} />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="group">
                                         <label className="d-block">Location</label>
@@ -298,7 +275,7 @@ const SignUp: FC<any> = (): ReactElement => {
                                         <label className="d-block">Email address / Phone Number</label>
                                         <input type="text" placeholder="Email / Phone" name="" id="" />
                                     </div>
-                                    <div className="group">
+                                    <div className="group last-child">
                                         <label className="d-block">Password</label>
                                         <input type="password" placeholder="Create password (at least 5 characters)" name="" id="" />
                                     </div>

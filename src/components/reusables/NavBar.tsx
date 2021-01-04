@@ -1,6 +1,6 @@
 import React, { FC, ReactElement , useState } from 'react';
 import styled from '@emotion/styled';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 
 
@@ -38,8 +38,14 @@ const NavBarWrapper = styled.div`
             border: none; 
             width: 131px;
             height: 48px;
+            line-height: 48px;
+            text-align: center;
             border-radius: 28px;
             color: #ffffff;
+            text-decoration: none;
+            font-family: 'Montserrat-Medium';
+
+            
         }
         .menu-toggle{
             display: none;
@@ -256,7 +262,7 @@ const NavBar: FC<any> = (): ReactElement => {
                     <NavLink to="/terms-of-use">Terms of Use</NavLink>
                     <NavLink to="/support">Support</NavLink>
                 </nav>
-                <button className="nav-button pry-button">Login</button>
+                <Link to="/sign-in" className="nav-button pry-button">Login</Link>
                 <div onClick = {(e) => {setNavState(!navState)}} className={`menu-toggle ${navState ? 'active' : ''}`}>
                     <span className="top"></span>
                     <span className="middle"></span>

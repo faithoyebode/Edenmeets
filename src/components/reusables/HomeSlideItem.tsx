@@ -8,6 +8,12 @@ interface slideProp{
 }
 
 const HomeSlideItemWrapper = styled.div`
+    min-width: 33%;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    scroll-snap-align: center;
+    
     .slide-item{
         background-color: #ffffff;
         text-align: center;
@@ -30,14 +36,19 @@ const HomeSlideItemWrapper = styled.div`
 
         }
     }
+    @media all and (max-width: 1199px){
+        width: 100%;
+        display: flex;
+        flex-shrink: 0;
+        justify-content: center;
+        border-radius: 8px;
+        
+    }
+
     @media all and (max-width: 768px){
-        .slide-item{
-            width: 300px;
             flex-shrink: 0;
             margin: 0 15px;
-            &:nth-of-type(1){
-                margin-left: 0px;
-            }
+            
         }
     }
 
@@ -46,6 +57,8 @@ const HomeSlideItemWrapper = styled.div`
             width: 290px;
             flex-shrink: 0;
             margin: 0 15px;
+            padding: 39px 15px;
+
         }
     }
     

@@ -117,7 +117,7 @@ const Footer: FC<any> = ({ image, name, quote }: slideProp): ReactElement => {
                             <div className=" footer-links">
                                 <Link to="/">Terms of Use</Link>
                                 <Link to="/">Privacy Policy</Link>
-                                <Link to="/">About Us</Link>
+                                <Link to="/about-us">About Us</Link>
                                 <Link to="/">FAQ</Link>
                                 <Link to="/">Guidelines</Link>
                             </div>

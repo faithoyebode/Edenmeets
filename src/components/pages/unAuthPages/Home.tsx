@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useRef } from 'react';
 import styled from '@emotion/styled';
 import HeroImg from 'assets/images/edenmeets-home-hero.jpg';
 import Singles1Img from 'assets/images/edenmeets-singles-1.jpg';
@@ -17,6 +17,11 @@ import ForwardArrow from 'assets/icons/forward-arrow.svg';
 import BackwardArrow from 'assets/icons/backward-arrow.svg';
 import NavBar from "components/reusables/NavBar";
 import Footer from "components/reusables/Footer";
+import {ReactComponent as WhiteStrokes} from 'assets/images/white-strokes.svg';
+import {ReactComponent as YellowStrokes} from 'assets/images/yellow-strokes.svg';
+import {ReactComponent as StrokeOnPic} from 'assets/images/stroke-on-pic.svg';
+
+
 
 
 
@@ -53,6 +58,35 @@ const HomeWrapper = styled.div`
                 border-radius: 39px;
             }
         }
+        .white-stroke{
+            position: absolute;
+            bottom: 120px;
+            left: 30%;
+            @media all and (max-width: 1200px){
+                left: 30%;
+            }
+
+            @media all and (max-width: 768px){
+                left: 60%;
+                bottom: 180px;
+            }
+            @media all and (max-width: 425px){
+                display: none;
+            }
+        }
+        .yellow-stroke{
+            position: absolute;
+            bottom: 120px;
+            right: 10%;
+
+            @media all and (max-width: 1200px){
+                right: 4%;
+            }
+            @media all and (max-width: 992px){
+                display: none;
+            }
+        }
+        
     }
     .hero-form{
         position: absolute;
@@ -65,8 +99,9 @@ const HomeWrapper = styled.div`
         color: #ffffff;
         bottom: -60px;
         right: 0;
-        margin-left: auto;
+        margin-right: 15px;
         padding: 40px 25px;
+        
 
         form{
             h5{
@@ -213,6 +248,29 @@ const HomeWrapper = styled.div`
             line-height: 27px;
 
         }
+        .stroke-overlay{
+            width: 150px;
+            left: 48%;
+            top: -37px;
+            transform: translateX(-50%);
+            transform: scale(1.5);
+
+            @media all and (max-width: 768px){
+                left: 48%;
+                top: 20px;
+                transform: scale(1.8, 2);
+            }
+
+            @media all and (max-width: 425px){
+                left: 39%;
+                top: -45px;
+                transform: scale(1.2);
+            }
+            @media all and (max-width: 320px){
+                left: 37%;
+                top: -63px;
+            }
+        }
     }
     .success-stories{
         .slide-section{
@@ -225,6 +283,16 @@ const HomeWrapper = styled.div`
             .slides{
                 display: flex;
                 align-items: stretch;
+                overflow-x: scroll;
+                scroll-snap-type: x mandatory;
+                width: 100%;
+                -ms-overflow-style: none;
+                overflow: -moz-scrollbars-none;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar { 
+                    display: none; 
+                }
 
                 .slide-item{
                     background-color: #ffffff;
@@ -272,7 +340,8 @@ const HomeWrapper = styled.div`
             padding-top: 60px;
             margin-bottom: 90px;
 
-            span{
+            button{
+                border: none;
                 width: 57px;
                 height: 57px;
                 border-radius: 50%;
@@ -281,6 +350,12 @@ const HomeWrapper = styled.div`
                 padding: 5px;
                 display: inline-flex;
                 justify-content: center;
+                padding: 0;
+                outline: none;
+
+                img{
+                    margin: auto;
+                }
 
                 &:nth-of-type(1){
                     margin-right: 34px;
@@ -310,7 +385,8 @@ const HomeWrapper = styled.div`
 
         .slides{
             flex-direction: row !important;
-            overflow: hidden
+            overflow: hidden;
+            border-radius: 8px;
         }
         
     }
@@ -341,7 +417,23 @@ const HomeWrapper = styled.div`
 
 const Home: FC<any> = (): ReactElement => {
 
-
+    const slidesConRef = useRef<HTMLDivElement>(null);
+    const prev = () => {
+        if(slidesConRef.current !== null ){
+        const conWidth = slidesConRef.current.clientWidth;
+        const itemWidth = -0.34 * conWidth;
+        slidesConRef.current.scrollBy({left: itemWidth, top: 0, behavior: 'smooth'});
+        // console.log(conWidth);
+        }
+    }
+    const next = () => {
+        if(slidesConRef.current !== null ){
+        const conWidth = slidesConRef.current.clientWidth;
+        const itemWidth = 0.34 * conWidth;
+        slidesConRef.current.scrollBy({left: itemWidth, top: 0, behavior: 'smooth'});
+        // console.log(conWidth);
+        }
+    }
     return (
         <HomeWrapper>
             <section className="hero position-relative">
@@ -356,6 +448,8 @@ const Home: FC<any> = (): ReactElement => {
                     </div>
                     
                 </div>
+                <WhiteStrokes className="white-stroke" />
+                <YellowStrokes className="yellow-stroke"/>
                 
             </section>
             <div className="container position-relative">
@@ -434,7 +528,10 @@ const Home: FC<any> = (): ReactElement => {
                             </div>
                         </div>
                         <div className="col-lg-5 offset-lg-1 flex-column h-100">
-                            <img src={YellowLady} alt="smiling lady on yellow dress" className="img-fluid w-100 mb-4 flex-shrink-0 h-50" />
+                            <div className="position-relative">
+                                <StrokeOnPic className="position-absolute stroke-overlay" />
+                                <img src={YellowLady} alt="smiling lady on yellow dress" className="img-fluid w-100 mb-4 flex-shrink-0 h-50" />
+                            </div>
                             <div className="row no-gutter">
                                 <div className="col-md-6">
                                     <img src={Couple1} alt="edenmeets singles" className="img-fluid w-100  mb-4" />
@@ -449,9 +546,9 @@ const Home: FC<any> = (): ReactElement => {
             </section>
             <section className="success-stories">
                 <div className="slide-section">
-                    <div className="container">
+                    <div className="container overflow-hidden">
                         <h3 className="success__title">Our Success Stories</h3>
-                        <div className="slides">
+                        <div ref={slidesConRef} className="slides">
                             <HomeSlideItem 
                                 image={TimothyImg}
                                 name="Timothy Bola"
@@ -477,19 +574,16 @@ const Home: FC<any> = (): ReactElement => {
                                 name="Betty Fidelis"
                                 quote="The dates are now regular and we are going from strength to strength as our          relationship builds more towards a new chapter in our lives."
                             />
-                            
-                        
                         </div>
                     </div>
                 </div>
                 <div className="controls d-flex justify-content-center">
-                    <span>
-                        <img src={BackwardArrow} alt="forward arrow" />
-
-                    </span>
-                    <span>
+                    <button onClick={prev}>
+                        <img src={BackwardArrow} alt="backward arrow" />
+                    </button>
+                    <button onClick={next}>
                         <img src={ForwardArrow} alt="backward arrow" />
-                    </span>
+                    </button>
                 </div>
             </section>
             <Footer />
