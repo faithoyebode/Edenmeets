@@ -7,3 +7,5 @@ export const SIGNIN = "/sign-in";
 export const FORGOT_PASSWORD = "/forgot-password";
 
 
+// auth paths
+export const USERDASHBOARD_HOME = "/user/dashboard";

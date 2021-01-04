@@ -3,7 +3,8 @@ import {
   ABOUT_US,
   SIGNUP,
   SIGNIN,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  USERDASHBOARD_HOME
   } from './pagesPath';
 import withSuspense from 'components/HOC/withSuspense';
 
@@ -32,6 +33,11 @@ import withSuspense from 'components/HOC/withSuspense';
   {
     path:  FORGOT_PASSWORD,
     component: withSuspense({ page: "unAuthPages/ForgotPassword" }),
+    exact: true,
+  },
+  {
+    path:  USERDASHBOARD_HOME,
+    component: withSuspense({ page: "authPages/UserDashboard" }),
     exact: true,
   }
 ];

@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import styled from '@emotion/styled';
 import AuthTemplate from "components/reusables/AuthTemplate";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 const SignInWrapper = styled.div`
@@ -66,6 +66,9 @@ const SignInWrapper = styled.div`
 
 
 const SignIn: FC<any>= (): ReactElement => {
+
+    const history = useHistory();
+
     return (
         <SignInWrapper>
             <AuthTemplate>
@@ -85,7 +88,7 @@ const SignIn: FC<any>= (): ReactElement => {
                             <input type="password" placeholder="Enter password" name="" id="" />
                         </div>
                         
-                        <button type="submit" className="d-block w-100 pry-button">Sign me in 🤚</button>
+                        <button type="submit" className="d-block w-100 pry-button" onClick={() => {history.push("/user/dashboard")}}>Sign me in 🤚</button>
                         <Link to="/forgot-password" className="f-14 fgt-pwd">Forgot password</Link>
                         <p className="sup-directive">
                             <span><Link to="/sign-up" className="sup">Sign Up</Link></span> here if you are not yet directed
